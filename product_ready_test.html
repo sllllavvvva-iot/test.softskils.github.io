@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тест: Готовность в Product Manager</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1f2328;--mu:#6b7280;--ac:#3b5bdb;--ac2:#e8edfc;--bd:#e3e1da;--bad:#b5533c;--bad2:#f8ebe7;--warn:#8a6d0b;--warn2:#fbf3d9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17191a;--card:#212426;--tx:#ececec;--mu:#9aa0a6;--ac:#8ea6f5;--ac2:#232a42;--bd:#33373a;--bad:#e08a73;--bad2:#3a2923;--warn:#e3c565;--warn2:#3a3320}}
+:root[data-theme="dark"]{--bg:#17191a;--card:#212426;--tx:#ececec;--mu:#9aa0a6;--ac:#8ea6f5;--ac2:#232a42;--bd:#33373a;--bad:#e08a73;--bad2:#3a2923;--warn:#e3c565;--warn2:#3a3320}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:16px}
+h1{font-size:26px;margin:0 0 8px}h2{font-size:20px;margin:0 0 12px}h3{font-size:16px;margin:16px 0 6px}
+p{margin:0 0 10px}.mu{color:var(--mu);font-size:14px}
+input[type=text]{width:100%;padding:12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-size:16px;margin:8px 0 14px}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 20px;font-weight:600}
+:root[data-theme="dark"] .btn{color:#10131f}
+.btn:disabled{opacity:.4;cursor:default}.btn.sec{background:var(--ac2);color:var(--ac)}
+.bar{height:6px;background:var(--bd);border-radius:3px;margin-bottom:16px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac);transition:width .3s}
+.opt{display:flex;gap:10px;align-items:center;border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.opt.m{border-color:var(--ac);background:var(--ac2)}.opt.l{border-color:var(--bad);background:var(--bad2)}
+.opt span{flex:1}
+.tg{display:flex;gap:6px}
+.tg button{width:40px;height:40px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:18px}
+.tg button.on.p{background:var(--ac);color:#fff;border-color:var(--ac)}.tg button.on.n{background:var(--bad);color:#fff;border-color:var(--bad)}
+.leg{display:flex;gap:16px;font-size:13px;color:var(--mu);margin-bottom:12px}
+.row{margin-bottom:12px}.row b{display:flex;justify-content:space-between;font-size:15px}
+.t{height:12px;background:var(--bd);border-radius:6px;overflow:hidden;margin-top:4px}.t i{display:block;height:100%;border-radius:6px}
+.tag{display:inline-block;padding:3px 10px;border-radius:99px;font-size:13px;margin:0 6px 6px 0;background:var(--ac2);color:var(--ac)}
+.tag.w2{background:var(--bad2);color:var(--bad)}
+.al{background:var(--warn2);color:var(--warn);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:15px}
+ul{margin:4px 0 10px;padding-left:20px}li{margin-bottom:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media print{.noprint{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="w" id="app"></div>
+<script>
+const C={
+cust:{n:"Клиентская эмпатия и discovery",d:"ищет реальные проблемы пользователей, общается с ними, не подменяет их потребности своими догадками",q:["Расскажите, как вы выясняли, чего на самом деле хотят пользователи. Что оказалось неожиданным?","Какое UX-решение вы изменили после разговора с пользователями?"],dev:"Проводить по 3–5 интервью в месяц, вести дневник инсайтов, освоить Jobs To Be Done."},
+data:{n:"Аналитика и метрики",d:"опирается на данные, понимает воронки, когорты и причинно-следственные связи",q:["Какую метрику вы бы выбрали главной для продукта X и почему?","Расскажите, как данные изменили ваше решение."],dev:"Освоить SQL и продуктовую аналитику (Amplitude, Mixpanel), разобрать воронку любого продукта."},
+prio:{n:"Приоритизация и фокус",d:"умеет говорить «нет», выбирает главное из множества задач",q:["У вас 10 важных задач и ресурсов на 3. Как вы выберете?","Расскажите, от какой хорошей идеи вы отказались и почему."],dev:"Практиковать RICE/ICE и Impact Mapping на реальных задачах, разбирать roadmap."},
+biz:{n:"Бизнес-мышление",d:"связывает продукт с выручкой, затратами, целями компании и рынком",q:["Как продукт, над которым вы работали, зарабатывает деньги?","Как вы оцените экономику новой функции до разработки?"],dev:"Разобрать юнит-экономику (CAC, LTV, ARPU), изучить бизнес-модель вашей компании."},
+infl:{n:"Влияние без власти",d:"выстраивает отношения со стейкхолдерами, договаривается, убеждает без формальных полномочий",q:["Расскажите, как вы убеждали несогласных людей без права приказа.","Как вы отказывали влиятельному стейкхолдеру?"],dev:"Практиковать работу со стейкхолдерами: карта влияния, регулярные синки, чёткие аргументы для отказов."},
+own:{n:"Ownership и инициатива",d:"берёт ответственность за результат, а не только за свою часть работы",q:["Расскажите, когда вы взялись за то, что не входило в ваши обязанности.","Какой проект вы довели до результата вопреки трудностям?"],dev:"Взять небольшой внутренний продукт или процесс «под себя» и отвечать за его метрики."},
+unc:{n:"Решения в неопределённости",d:"принимает решения при неполных данных, формулирует гипотезы, не парализуется",q:["Расскажите о решении, которое вы принимали без полной информации.","Как вы выбираете между двумя вариантами без данных?"],dev:"Учиться формулировать гипотезы и проверять их дешёвыми экспериментами (A/B, прототипы, fake door)."},
+qual:{n:"Баланс качества и скорости",d:"понимает, когда достаточно «достаточно хорошо», и осознанно выбирает компромиссы",q:["Расскажите о случае, когда вы выпустили продукт с известными недостатками. Почему?","Где вы поступились идеалом ради срока?"],dev:"Определять для каждой фичи допустимый уровень качества и риска, учиться отпускать перфекционизм."}
+};
+const Q=[
+["Вам дали фичу, которую «очень хочет руководство». Что вы сделаете первым?",[["cust","Поговорю с пользователями: какую проблему решает фича"],["data","Посмотрю данные: есть ли подтверждение спроса"],["prio","Сопоставлю с другими задачами и пойму, что придётся отложить"],["own","Сам сформулирую цель и критерии успеха"]]],
+["До релиза три дня, найден нетривиальный дефект средней серьёзности.",[["biz","Оценю влияние на выручку и репутацию против цены задержки"],["infl","Соберу разработку и бизнес, чтобы выбрать решение вместе"],["unc","Выпущу с мониторингом и планом отката"],["qual","Настою на переносе релиза: качество важнее срока"]]],
+["Отдел продаж просит срочную фичу под одного крупного клиента.",[["cust","Выясню, какую задачу клиента они хотят решить"],["biz","Посчитаю потенциальную выручку против стоимости разработки"],["infl","Объясню, что и когда мы сможем, и сохраню отношения"],["prio","Сверюсь с roadmap и откажу, если это не вписывается"]]],
+["После релиза ключевая метрика не выросла.",[["data","Разложу воронку по сегментам и найду утечку"],["own","Признаю, что это моя зона, и предложу план действий"],["unc","Запущу быстрый эксперимент, не дожидаясь полной картины"],["qual","Проверю, нет ли багов, из-за которых пользователи не доходят до фичи"]]],
+["Команда спорит между двумя решениями, а данных для выбора нет.",[["unc","Предложу дешёвый тест или прототип, чтобы выбрать"],["cust","Покажу прототипы пользователям"],["infl","Дам высказаться каждому и добьюсь общего решения"],["prio","Выберу вариант, быстрее дающий ценность, и зафиксирую критерии пересмотра"]]],
+["Нужно убедить руководство инвестировать в улучшение UX.",[["data","Свяжу UX-проблемы с метриками: конверсия, отток"],["biz","Покажу эффект в деньгах"],["own","Подготовлю предложение и лично защищу его"],["qual","Покажу конкретные проблемные места и дефекты с примерами"]]],
+["Нужно решить, чем заниматься продукту в следующем квартале.",[["cust","Проведу интервью и найду боли пользователей"],["data","Изучу поведение и метрики"],["biz","Свяжу с целями компании и конкурентной позицией"],["unc","Сформулирую гипотезы и порядок их проверки"]]],
+["Разработчики говорят, что ваше требование нереально по срокам.",[["prio","Предложу урезать объём до самого ценного"],["infl","Выслушаю ограничения и найду компромисс"],["own","Сам решу, что сокращать, и объясню руководству"],["qual","Настою на минимально приемлемом качестве"]]],
+["Вы заметили проблему у соседней команды, которая влияет на ваш продукт.",[["own","Не жду поручений: беру вопрос и веду до решения"],["infl","Выстрою диалог и найду общую выгоду"],["data","Соберу цифры, чтобы показать масштаб влияния"],["cust","Покажу реальные жалобы пользователей"]]],
+["Идей у вас на год, а ресурсов на квартал.",[["prio","Применю фреймворк (RICE, ICE) и отсею лишнее"],["biz","Выберу то, что сильнее двигает цели бизнеса"],["unc","Сделаю несколько ставок и заранее решу, когда остановлюсь"],["qual","Выберу то, что повысит стабильность и снизит технический долг"]]],
+["Пользователи пишут противоречивые отзывы о новой функции.",[["cust","Созвонюсь с несколькими пользователями и пойму контекст"],["data","Сегментирую отзывы и сверю с поведением"],["prio","Определю, какие группы важнее для стратегии"],["infl","Покажу картину всей команде, чтобы все видели одно и то же"]]],
+["Что для вас в роли продакта самое важное?",[["biz","Отвечать за результат бизнеса"],["own","Быть владельцем продукта и решений"],["unc","Принимать решения без полной информации"],["qual","Следить, чтобы продукт был надёжным и без сюрпризов"]]]
+];
+const A={};let step=-1,name="";
+const $=s=>document.getElementById(s);
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function start(){return `<div class="card"><h1>Готовность в Product Manager</h1><p class="mu">12 рабочих ситуаций, около 10 минут. В каждой выберите вариант, который <b>больше всего</b> про вас (＋), и вариант, который <b>меньше всего</b> про вас (−). Правильных ответов нет: важно, как вы действуете на самом деле.</p>
+<input type="text" id="nm" placeholder="Имя кандидата" value="${esc(name)}">
+<button class="btn" onclick="go()">Начать</button></div>`}
+function go(){name=$("nm").value.trim()||"Кандидат";step=0;render()}
+function qv(){const [t,o]=Q[step];const a=A[step]||{};
+return `<div class="bar"><i style="width:${step/Q.length*100}%"></i></div><div class="card"><div class="mu">Ситуация ${step+1} из ${Q.length}</div><h2>${esc(t)}</h2>
+<div class="leg"><span>＋ больше всего про меня</span><span>− меньше всего</span></div>
+${o.map(([k,x],i)=>`<div class="opt ${a.m===i?'m':a.l===i?'l':''}"><span>${esc(x)}</span><div class="tg"><button class="p ${a.m===i?'on':''}" onclick="pick('m',${i})">＋</button><button class="n ${a.l===i?'on':''}" onclick="pick('l',${i})">−</button></div></div>`).join("")}
+<div class="nav" style="margin-top:14px"><button class="btn sec" onclick="back()" ${step?'':'disabled'}>Назад</button><button class="btn" onclick="next()" ${(a.m!=null&&a.l!=null)?'':'disabled'}>${step==Q.length-1?'Показать результат':'Далее'}</button></div></div>`}
+function pick(t,i){const a=A[step]=A[step]||{};const other=t=='m'?'l':'m';if(a[other]===i)a[other]=null;a[t]=a[t]===i?null:i;render()}
+function next(){step++;render();scrollTo(0,0)}function back(){step--;render()}
+function calc(){const s={},n={};Object.keys(C).forEach(k=>{s[k]=0;n[k]=0});
+Q.forEach(([t,o],qi)=>{o.forEach(([k],i)=>{n[k]++;if(A[qi].m===i)s[k]++;if(A[qi].l===i)s[k]--})});
+return Object.keys(C).map(k=>({k,p:Math.round((s[k]+n[k])/(2*n[k])*100)})).sort((a,b)=>b.p-a.p)}
+function col(p){return p>=70?"var(--ac)":p>=40?"#c9a227":"var(--bad)"}
+function flags(r){const g=k=>r.find(x=>x.k==k).p,f=[];
+if(g("qual")>=65&&(g("unc")<=45||g("prio")<=45))f.push("«Ловушка тестировщика»: сильный фокус на качестве при слабой готовности решать в неопределённости или отказываться. Риск: перфекционизм и затягивание релизов.");
+if(g("own")<=40)f.push("Низкий ownership: кандидат может оставаться в роли исполнителя, а продакту нужна ответственность за результат.");
+if(g("biz")<=40)f.push("Слабое бизнес-мышление: нужно научиться связывать продукт с выручкой и целями компании.");
+if(g("infl")<=40)f.push("Слабое влияние без власти: у продакта нет формальных полномочий, поэтому навык критичен.");
+if(g("cust")>=65&&g("data")>=65)f.push("Сильная связка пользовательских инсайтов и данных: хорошая база для discovery.");
+if(!f.length)f.push("Явных красных флагов нет, но проверьте результат на интервью и кейсе.");
+return f}
+function result(){const r=calc();const top=r.slice(0,3),low=r.slice(-3).reverse();
+return `<div class="card"><h1>${esc(name)}</h1><p class="mu">Профиль готовности к роли Product Manager</p>
+${r.map(x=>`<div class="row"><b><span>${C[x.k].n}</span><span>${x.p}%</span></b><div class="t"><i style="width:${x.p}%;background:${col(x.p)}"></i></div></div>`).join("")}
+<p class="mu">Шкала показывает приоритеты внутри профиля кандидата, а не сравнение с нормой.</p></div>
+<div class="card"><h2>Что заметно в профиле</h2>${flags(r).map(f=>`<div class="al">${f}</div>`).join("")}
+<h3>Сильные стороны</h3>${top.map(x=>`<span class="tag">${C[x.k].n}</span>`).join("")}
+<ul>${top.map(x=>`<li><b>${C[x.k].n}</b>: ${C[x.k].d}</li>`).join("")}</ul>
+<h3>Зоны роста</h3>${low.map(x=>`<span class="tag w2">${C[x.k].n}</span>`).join("")}
+<ul>${low.map(x=>`<li><b>${C[x.k].n}</b>: ${C[x.k].dev}</li>`).join("")}</ul></div>
+<div class="card"><h2>Вопросы для интервью</h2><p class="mu">Проверьте слабые зоны поведенческими вопросами (STAR: ситуация, задача, действие, результат).</p>
+${low.map(x=>`<h3>${C[x.k].n}</h3><ul>${C[x.k].q.map(q=>`<li>${q}</li>`).join("")}</ul>`).join("")}
+<h3>Подтвердите сильные стороны</h3><ul>${top.slice(0,2).map(x=>`<li>${C[x.k].n}: ${C[x.k].q[0]}</li>`).join("")}</ul>
+<h3>Практический кейс</h3><p>Дайте мини-кейс: «Конверсия в оплату упала на 15%. Что вы делаете в первую неделю?». Смотрите, как кандидат работает с данными, гипотезами и приоритетами.</p></div>
+<div class="card"><h2>Как использовать результат</h2><ul><li>Тест основан на самооценке, поэтому используйте его вместе с интервью, кейсом и рекомендациями.</li><li>Низкие баллы — не приговор: большинство навыков PM развиваются практикой. Оцените готовность кандидата их развивать.</li><li>Сопоставьте профиль с ролью: для Junior PM важнее клиентская эмпатия, аналитика и ownership, для Senior — влияние, бизнес-мышление и решения в неопределённости.</li></ul>
+<div class="nav noprint"><button class="btn sec" onclick="copyR()">Скопировать отчёт</button><button class="btn sec" onclick="print()">Печать</button><button class="btn" onclick="reset()">Новый кандидат</button></div><p class="mu" id="cp"></p></div>`}
+function copyR(){const r=calc();const t=`Готовность к PM: ${name}\n`+r.map(x=>`${C[x.k].n}: ${x.p}%`).join("\n")+`\nСильные: ${r.slice(0,3).map(x=>C[x.k].n).join(", ")}\nЗоны роста: ${r.slice(-3).map(x=>C[x.k].n).join(", ")}\n`+flags(r).join("\n");
+try{navigator.clipboard.writeText(t).then(()=>$("cp").textContent="Скопировано",()=>$("cp").textContent=t)}catch(e){$("cp").textContent=t}}
+function reset(){for(const k in A)delete A[k];name="";step=-1;render();scrollTo(0,0)}
+function render(){$("app").innerHTML=step<0?start():step<Q.length?qv():result()}
+render();
+</script>
+</body>
+</html>
